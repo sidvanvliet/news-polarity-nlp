@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>News Polarity NLP</title>
+        <link
+            href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+            rel="stylesheet"
+            integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+            crossorigin="anonymous"
+            />
+    </head>
+    <body>
+        <div class="container mt-5">
+            <div class="row">
+                <div class="col-sm-8">
+                    <h1>News Polarity NLP</h1>
+                </div>
+                <div class="col-sm-4">
+                    <div class="card border-0 text-end">
+                        <div class="card-body p-0">
+                            <h5
+                                class="card-title fw-bold {% if data.median_polarity < 0 %}text-danger{% else %}text-success{% endif %}"
+                                >
+                                {{ data.median_polarity|round(4) }}
+                            </h5>
+                            <p class="card-text">Median polarity of last 10 articles</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <table class="table table-striped mt-5">
+                <thead class="table-dark">
+                    <tr>
+                        <th>Article</th>
+                        <th>Polarity</th>
+                        <th>Subjectivity</th>
+                        <th>Pub. date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for article in data.articles %}
+                    <tr>
+                        <td>
+                            <small>{{ article[0] }}</small>
+                        </td>
+                        <td
+                            class="fw-bold {% if article[1] < 0 %}text-danger{% else %}text-success{% endif %}"
+                            >
+                            {{ article[1] | round(4) }}
+                        </td>
+                        <td>{{ article[2] | round(4) }}</td>
+                        <td>{{ article[3] }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </body>
+</html>
